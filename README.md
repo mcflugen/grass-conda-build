@@ -7,7 +7,7 @@ Get a minimal anaconda installation
 If you don't already have an Anaconda distribution on your machine,
 you will need to install one.
 
-    $ curl https://repo.continuum.io/miniconda/Miniconda2-latest-MacOSX-x86_64.sh > miniconda.sh # You can substitute Linux of MacOSX
+    $ curl https://repo.continuum.io/miniconda/Miniconda2-latest-MacOSX-x86_64.sh > miniconda.sh
     $ bash ./miniconda.sh -b -f -p $(pwd)/conda # You can install it wherever you like
     $ export PATH=$(pwd)/conda/bin:$PATH
 
@@ -45,6 +45,9 @@ Anaconda on a Mac.
    `grass.lib.ctypes_loader`
 *  `loader.py.patch`: On Mac, additionally use `LD_RUN_PATH` for
    folders to check for libraries to load.
+
+Almost certainly these patches will break things on non-Mac non-Anaconda
+builds.
 
     $ patch -p0 < platform.make.in.patch
     $ patch -p0 < loader.py.patch
