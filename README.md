@@ -53,9 +53,13 @@ To build GRASS, apply the patches, configure, and build.
     $ patch -p0 < platform.make.in.patch
     $ patch -p0 < loader.py.patch
     $ patch -p0 < rules.make.patch
+    $ patch -p0 < aclocal.m4.patch
+    $ patch -p0 < install.make.patch
+    $ patch -p0 < configure.patch
     $ cd grass-7.2.0
     $ bash ../configure.sh
     $ make -j4 GDAL_DYNAMIC=
+    $ make install
 
 ## Create an Anaconda package for GRASS
 
