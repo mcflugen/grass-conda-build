@@ -13,6 +13,7 @@ source:
     - rules.make.patch
     - aclocal.m4.patch
     - configure.patch
+    - install.make.patch
 
 requirements:
   build:
