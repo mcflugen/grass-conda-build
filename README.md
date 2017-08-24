@@ -63,4 +63,4 @@ This will build an Anaconda package for GRASS.
 
     $ conda install conda-build
     $ cd recipe
-    $ conda build . -c defaults -c conda-forge
+    $ conda build . -c noaa-orr-erd -c defaults -c conda-forge
