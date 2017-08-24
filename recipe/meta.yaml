@@ -11,6 +11,8 @@ source:
     - platform.make.in.patch
     - loader.py.patch
     - rules.make.patch
+    - aclocal.m4.patch
+    - configure.m4.patch
 
 requirements:
   build:
