@@ -1,6 +1,7 @@
 #! /bin/bash
 
-export PATH=$(pwd)/conda/bin:/usr/bin:/bin:/usr/sbin:/etc:/usr/lib
+ANACONDA_PREFIX=$(pwd)/conda
+export PATH=$ANACONDA_PREFIX/bin:/usr/bin:/bin:/usr/sbin:/etc:/usr/lib
 
 curl -O https://grass.osgeo.org/grass72/source/grass-7.2.0.tar.gz
 tar xvfz grass-7.2.0.tar.gz
