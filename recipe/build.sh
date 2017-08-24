@@ -45,16 +45,17 @@ if [ $(uname) == Darwin ]; then
   CONFIGURE_FLAGS="\
     $CONFIGURE_FLAGS \
     --with-opengl=aqua \
-    --enable-macosx-app \
-    --with-opencl \
     "
+#    --enable-macosx-app
+#    --with-opencl
 #  --with-macosx-sdk=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
 fi
 
 ./configure $CONFIGURE_FLAGS
 make -j4 GDAL_DYNAMIC=
+make install
 
-for d in bin etc include lib scripts share; do
-  cp -r dist.*/$d $PREFIX
-done
-cp -r dist.*/etc/python/grass $PREFIX/lib/python2.7/site-packages
+# for d in bin etc include lib scripts share; do
+#   cp -r dist.*/$d $PREFIX
+# done
+# cp -r dist.*/etc/python/grass $PREFIX/lib/python2.7/site-packages
