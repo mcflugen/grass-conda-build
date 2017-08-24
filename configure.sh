@@ -47,9 +47,9 @@ if [ $(uname) == Darwin ]; then
   CONFIGURE_FLAGS="\
     $CONFIGURE_FLAGS \
     --with-opengl=aqua \
-    --enable-macosx-app \
-    --with-opencl \
     "
+#     --enable-macosx-app \
+#     --with-opencl \
 #  --with-macosx-sdk=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk
 fi
 
