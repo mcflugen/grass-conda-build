@@ -21,9 +21,11 @@ with your current Python distribution.
     $ source activate grass
 
 Install the dependencies. Note that the `default` channel comes
-before `conda-forge`. This is important.
+before `conda-forge`. This is important. We use the *noaa-orr-erd*
+channel to get a working version of wxpython (the version in the
+*defaults* channel is buggy).
 
-    $ conda install --yes --file=requirements.txt -c defaults -c conda-forge
+    $ conda install --yes --file=requirements.txt -c noaa-orr-erd -c defaults -c conda-forge
 
 ### Get the GRASS source and compile
 
