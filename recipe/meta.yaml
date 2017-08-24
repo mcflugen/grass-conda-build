@@ -12,7 +12,7 @@ source:
     - loader.py.patch
     - rules.make.patch
     - aclocal.m4.patch
-    - configure.m4.patch
+    - configure.patch
 
 requirements:
   build:
