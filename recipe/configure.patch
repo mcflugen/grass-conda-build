@@ -1,5 +1,5 @@
---- grass-7.2.0/configure	2017-08-24 12:47:14.000000000 -0600
-+++ grass-7.2.0.mine/configure	2017-08-24 12:48:49.000000000 -0600
+--- grass-7.2.2RC1/configure	2017-08-24 12:47:14.000000000 -0600
++++ grass-7.2.2RC1.mine/configure	2017-08-24 12:48:49.000000000 -0600
 @@ -1522,7 +1522,7 @@
  	*-apple-darwin*)
  	    SHLIB_CFLAGS="-fno-common"

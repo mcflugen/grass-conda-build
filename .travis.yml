@@ -40,10 +40,9 @@ install:
 - conda list
 - conda info -a
 script:
-- curl $GRASS_SOURCE_URL/grass-7.2.2RC1.tar.gz > grass-7.2.2.tar.gz
-- tar xfz grass-7.2.2.tar.gz
-- mv grass-7.2.2RC1 grass-7.2.2
+- curl -O $GRASS_SOURCE_URL/grass-7.2.2RC1.tar.gz
+- tar xfz grass-7.2.2RC1.tar.gz
 - for p in $PATCHES; do patch -p0 < recipe/$p; done
-- cd grass-7.2.2
+- cd grass-7.2.2RC1
 - travis_wait 40 bash ../recipe/build.sh
 - make -j4 install
