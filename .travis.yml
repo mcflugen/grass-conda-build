@@ -41,8 +41,13 @@ script:
 - curl $GRASS_SOURCE_URL/grass-7.2.2RC1.tar.gz > grass-7.2.2.tar.gz
 - tar xfz grass-7.2.2.tar.gz
 - mv grass-7.2.2RC1 grass-7.2.2
-- for p in *patch; do patch -p0 $p; done
+- patch -p0 < platform.make.in.patch
+- patch -p0 < loader.py.patch
+- patch -p0 < rules.make.patch
+- patch -p0 < aclocal.m4.patch
+- patch -p0 < install.make.patch
+- patch -p0 < configure.patch
 - cd grass-7.2.2
 - bash ../configure.sh
-- make -j4 GDAL_DYNAMIC=
+- travis_wait 40 make -j4 GDAL_DYNAMIC= > out.txt 2>&1 || (tail -400 out.txt && echo "ERROR in make step" && exit -1)
 - make -j4 install
