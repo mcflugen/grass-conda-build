@@ -7,6 +7,7 @@ env:
   - CONDA_PREFIX=$HOME/miniconda
   - MACOSX_DEPLOYMENT_TARGET="10.9"
   - GRASS_SVN_REPO="https://svn.osgeo.org/grass/grass"
+  - GRASS_SOURCE_URL="https://grass.osgeo.org/grass72/source"
   - GRASS_PYTHON=pythonw
   - MINICONDA_URL_BASE="https://repo.continuum.io/miniconda/Miniconda2-latest"
   - TRAVIS_PYTHON_VERSION="2.7"
@@ -35,7 +36,9 @@ install:
 - conda list
 - conda info -a
 script:
-- svn checkout $GRASS_SVN_REPO/branches/releasebranch_7_2 grass-7.2.2
+- curl $GRASS_SOURCE_URL/grass-7.2.2RC1.tar.gz > grass-7.2.2.tar.gz
+- tar xvfz grass-7.2.2.tar.gz
+- mv grass-7.2.2RC1 grass-7.2.2
 - for p in *patch; do patch -p0 $p; done
 - cd grass-7.2.2
 - bash ../configure.sh
