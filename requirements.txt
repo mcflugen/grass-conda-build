@@ -11,6 +11,7 @@ jpeg
 libpng
 libtiff
 pkg-config
+python.app
 
 libiconv
 fftw
