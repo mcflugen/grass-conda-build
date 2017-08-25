@@ -1,6 +1,6 @@
 language: generic
 os:
-# - linux
+- linux
 - osx
 env:
   global:
