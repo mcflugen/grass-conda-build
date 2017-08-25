@@ -4,11 +4,10 @@ os:
 - osx
 env:
   global:
-  - CONDA_PREFIX=$HOME/miniconda
+  - PREFIX=$HOME/grass
   - MACOSX_DEPLOYMENT_TARGET="10.9"
   - GRASS_SVN_REPO="https://svn.osgeo.org/grass/grass"
   - GRASS_SOURCE_URL="https://grass.osgeo.org/grass72/source"
-  - PREFIX=$HOME/miniconda
   - GRASS_PYTHON=pythonw
   - MINICONDA_URL_BASE="https://repo.continuum.io/miniconda/Miniconda2-latest"
   - TRAVIS_PYTHON_VERSION="2.7"
@@ -30,12 +29,11 @@ install:
     REQUIREMENTS=requirements-linux.txt
   fi
 - curl $MINICONDA_URL_BASE-$OS.sh > $HOME/minconda.sh
-- bash $HOME/minconda.sh -b -p $CONDA_PREFIX
-- export PATH="$CONDA_PREFIX/bin:$PATH"
+- bash $HOME/minconda.sh -b -p $PREFIX
+- export PATH="$PREFIX/bin:$PATH"
 - hash -r
 - conda config --set always_yes yes --set changeps1 no
-- conda create -n grass python=$TRAVIS_PYTHON_VERSION
-- source activate grass
+- conda install python=$TRAVIS_PYTHON_VERSION
 - conda install --file=$REQUIREMENTS -c noaa-orr-erd -c defaults -c conda-forge
 - conda list
 - conda info -a
