@@ -8,6 +8,7 @@ env:
   - MACOSX_DEPLOYMENT_TARGET="10.9"
   - GRASS_SVN_REPO="https://svn.osgeo.org/grass/grass"
   - GRASS_SOURCE_URL="https://grass.osgeo.org/grass72/source"
+  - PREFIX=$HOME/miniconda
   - GRASS_PYTHON=pythonw
   - MINICONDA_URL_BASE="https://repo.continuum.io/miniconda/Miniconda2-latest"
   - TRAVIS_PYTHON_VERSION="2.7"
@@ -48,6 +49,5 @@ script:
 - patch -p0 < install.make.patch
 - patch -p0 < configure.patch
 - cd grass-7.2.2
-- bash ../configure.sh
-- travis_wait 40 make -j4 GDAL_DYNAMIC= > out.txt 2>&1 || (tail -400 out.txt && echo "ERROR in make step" && exit -1)
+- travis_wait 40 bash ../recipe/build.sh
 - make -j4 install
