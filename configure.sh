@@ -3,9 +3,13 @@
 export PREFIX=$(python -c 'import sys; print sys.prefix')
 
 export PATH=/usr/bin:/bin:/usr/sbin:/etc:/usr/lib:$PREFIX/bin
-export GRASS_PYTHON=$(which pythonw)
 export CC=$(which gcc)
 export CXX=$(which g++)
+if [ $(uname) == Darwin ]; then
+  export GRASS_PYTHON=$(which pythonw)
+else
+  export GRASS_PYTHON=$(which python)
+fi
 
 CONFIGURE_FLAGS="\
   --prefix=$PREFIX \
