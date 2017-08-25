@@ -1,5 +1,5 @@
---- grass-7.2.0/include/Make/Install.make	2017-08-24 13:58:38.000000000 -0600
-+++ grass-7.2.0.mine/include/Make/Install.make	2017-08-24 13:59:17.000000000 -0600
+--- grass-7.2.2/include/Make/Install.make	2017-08-24 13:58:38.000000000 -0600
++++ grass-7.2.2.mine/include/Make/Install.make	2017-08-24 13:59:17.000000000 -0600
 @@ -118,7 +118,8 @@
  
  ifneq ($(findstring darwin,$(ARCH)),)
