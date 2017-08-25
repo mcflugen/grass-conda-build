@@ -8,9 +8,11 @@ package:
 source:
   url: https://grass.osgeo.org/grass72/source/grass-7.2.0.tar.gz
   patches:
-    - platform.make.in.patch
+    - platform.make.in.patch [osx]
+    - platform.make.in-linux.patch [linux]
     - loader.py.patch
-    - rules.make.patch
+    - rules.make.patch [osx]
+    - rules.make.patch [linux]
     - aclocal.m4.patch
     - configure.patch
     - install.make.patch
@@ -36,6 +38,7 @@ requirements:
     - fftw
     - blas
     - giflib
+    - python.app [osx]
 
   run:
     - python
@@ -57,6 +60,7 @@ requirements:
     - fftw
     - blas
     - giflib
+    - python.app [osx]
 
 build:
   number: 0
