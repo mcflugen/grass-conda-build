@@ -1,6 +1,6 @@
 language: generic
 os:
-- linux
+# - linux
 - osx
 env:
   global:
@@ -34,7 +34,8 @@ install:
 - export PATH="$CONDA_PREFIX/bin:$PATH"
 - hash -r
 - conda config --set always_yes yes --set changeps1 no
-- conda install python=$TRAVIS_PYTHON_VERSION
+- conda create -n grass python=$TRAVIS_PYTHON_VERSION
+- source activate grass
 - conda install --file=$REQUIREMENTS -c noaa-orr-erd -c defaults -c conda-forge
 - conda list
 - conda info -a
