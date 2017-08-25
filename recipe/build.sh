@@ -8,6 +8,7 @@ if [ $(uname) == Darwin ]; then
   export GRASS_PYTHON=$(which pythonw)
 else
   export GRASS_PYTHON=$(which python)
+  export LD_LIBRARY_PATH=$PREFIX/lib
 fi
 
 CONFIGURE_FLAGS="\
