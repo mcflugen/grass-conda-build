@@ -45,4 +45,3 @@ script:
 - for p in $PATCHES; do patch -p0 < recipe/$p; done
 - cd grass-7.2.2RC1
 - travis_wait 40 bash ../recipe/build.sh
-- make -j4 install
