@@ -4,6 +4,11 @@ export PATH=/usr/bin:/bin:/usr/sbin:/etc:/usr/lib:$PREFIX/bin
 
 export CC=$(which gcc)
 export CXX=$(which g++)
+if [ $(uname) == Darwin ]; then
+  export GRASS_PYTHON=$(which pythonw)
+else
+  export GRASS_PYTHON=$(which python)
+fi
 
 CONFIGURE_FLAGS="\
   --prefix=$PREFIX \
@@ -52,8 +57,8 @@ if [ $(uname) == Darwin ]; then
 fi
 
 ./configure $CONFIGURE_FLAGS
-make -j4 GDAL_DYNAMIC=
-make install
+make -j4 GDAL_DYNAMIC= > out.txt 2>&1 || (tail -400 out.txt && echo "ERROR in make step" && exit -1)
+make -j4 install
 
 # for d in bin etc include lib scripts share; do
 #   cp -r dist.*/$d $PREFIX
