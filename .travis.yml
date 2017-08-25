@@ -24,9 +24,11 @@ install:
   if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
     OS="MacOSX-x86_64"
     REQUIREMENTS=requirements.txt
+    PATCHES="platform.make.in.patch loader.py.patch rules.make.patch aclocal.m4.patch install.make.patch configure.patch"
   else
     OS="Linux-x86_64"
     REQUIREMENTS=requirements-linux.txt
+    PATCHES="platform.make.in-linux.patch loader.py.patch rules.make-linux.patch aclocal.m4.patch install.make.patch configure.patch"
   fi
 - curl $MINICONDA_URL_BASE-$OS.sh > $HOME/minconda.sh
 - bash $HOME/minconda.sh -b -p $PREFIX
@@ -41,12 +43,7 @@ script:
 - curl $GRASS_SOURCE_URL/grass-7.2.2RC1.tar.gz > grass-7.2.2.tar.gz
 - tar xfz grass-7.2.2.tar.gz
 - mv grass-7.2.2RC1 grass-7.2.2
-- patch -p0 < platform.make.in.patch
-- patch -p0 < loader.py.patch
-- patch -p0 < rules.make.patch
-- patch -p0 < aclocal.m4.patch
-- patch -p0 < install.make.patch
-- patch -p0 < configure.patch
+- for p in $PATCHES; do patch -p0 < recipe/$p; done
 - cd grass-7.2.2
 - travis_wait 40 bash ../recipe/build.sh
 - make -j4 install
