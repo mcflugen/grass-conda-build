@@ -4,7 +4,7 @@
          if not dyld_fallback_library_path:
              dyld_fallback_library_path = [os.path.expanduser('~/lib'),
                                            '/usr/local/lib', '/usr/lib']
-+        ld_run_path = os.environ.get('LD_RUN_PATH', [])
++        ld_run_path = os.environ.get('LD_RUN_PATH', '')
 +        for path in ld_run_path.split(os.pathsep):
 +            dyld_fallback_library_path.append(path)
  
