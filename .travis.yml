@@ -39,7 +39,7 @@ install:
 - conda info -a
 script:
 - curl $GRASS_SOURCE_URL/grass-7.2.2RC1.tar.gz > grass-7.2.2.tar.gz
-- tar xvfz grass-7.2.2.tar.gz
+- tar xfz grass-7.2.2.tar.gz
 - mv grass-7.2.2RC1 grass-7.2.2
 - for p in *patch; do patch -p0 $p; done
 - cd grass-7.2.2
