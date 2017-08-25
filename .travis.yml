@@ -1,0 +1,43 @@
+language: generic
+os:
+# - linux
+- osx
+env:
+  global:
+  - CONDA_PREFIX=$HOME/miniconda
+  - MACOSX_DEPLOYMENT_TARGET="10.9"
+  - GRASS_SVN_REPO="https://svn.osgeo.org/grass/grass"
+  - GRASS_PYTHON=pythonw
+  - MINICONDA_URL_BASE="https://repo.continuum.io/miniconda/Miniconda2-latest"
+  - TRAVIS_PYTHON_VERSION="2.7"
+sudo: false
+before_install:
+- |
+  if [[ $TRAVIS_OS_NAME == "osx" ]]; then
+    brew remove --force $(brew list)
+    brew cleanup -s
+    rm -rf $(brew --cache)
+  fi
+install:
+- |
+  if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+    OS="MacOSX-x86_64"
+  else
+    OS="Linux-x86_64"
+  fi
+- curl $MINICONDA_URL_BASE-$OS.sh > $HOME/minconda.sh
+- bash $HOME/minconda.sh -b -p $CONDA_PREFIX
+- export PATH="$CONDA_PREFIX/bin:$PATH"
+- hash -r
+- conda config --set always_yes yes --set changeps1 no
+- conda install python=$TRAVIS_PYTHON_VERSION
+- conda install --file=requirements.txt -c noaa-orr-erd -c defaults -c conda-forge
+- conda list
+- conda info -a
+script:
+- svn checkout $GRASS_SVN_REPO/branches/releasebranch_7_2 grass-7.2.2
+- for p in *patch; do patch -p0 $p; done
+- cd grass-7.2.2
+- bash ../configure.sh
+- make -j4 GDAL_DYNAMIC=
+- make -j4 install
