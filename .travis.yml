@@ -23,8 +23,10 @@ install:
 - |
   if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
     OS="MacOSX-x86_64"
+    REQUIREMENTS=requirements.txt
   else
     OS="Linux-x86_64"
+    REQUIREMENTS=requirements-linux.txt
   fi
 - curl $MINICONDA_URL_BASE-$OS.sh > $HOME/minconda.sh
 - bash $HOME/minconda.sh -b -p $CONDA_PREFIX
@@ -32,7 +34,7 @@ install:
 - hash -r
 - conda config --set always_yes yes --set changeps1 no
 - conda install python=$TRAVIS_PYTHON_VERSION
-- conda install --file=requirements.txt -c noaa-orr-erd -c defaults -c conda-forge
+- conda install --file=$REQUIREMENTS -c noaa-orr-erd -c defaults -c conda-forge
 - conda list
 - conda info -a
 script:
