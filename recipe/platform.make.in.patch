@@ -27,3 +27,12 @@
  
  DLLIB               = @DLLIB@
  XCFLAGS             = @X_CFLAGS@
+@@ -208,7 +208,7 @@
+ CAIRO_HAS_XRENDER_SURFACE = @CAIRO_HAS_XRENDER_SURFACE@
+ 
+ #Python
+-PYTHON              = python
++PYTHON              = ${prefix}/bin/python
+ 
+ #regex
+ REGEXINCPATH        = @REGEXINCPATH@
