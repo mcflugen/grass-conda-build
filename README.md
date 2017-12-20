@@ -20,17 +20,16 @@ with your current Python distribution.
     $ conda create -n grass python=2.7
     $ source activate grass
 
-Install the dependencies. Note that the `default` channel comes
-before `conda-forge`. This is important. We use the *noaa-orr-erd*
+Install the dependencies. We use the *noaa-orr-erd*
 channel to get a working version of wxpython (the version in the
 *defaults* channel is buggy).
 
-    $ conda install --yes --file=requirements.txt -c noaa-orr-erd -c defaults -c conda-forge
+    $ conda install --yes --file=requirements.txt -c noaa-orr-erd -c conda-forge
 
 ### Get the GRASS source and compile
 
-    $ curl -O https://grass.osgeo.org/grass72/source/grass-7.2.0.tar.gz
-    $ tar xvfz grass-7.2.0.tar.gz
+    $ curl -O https://grass.osgeo.org/grass72/source/grass-7.2.2.tar.gz
+    $ tar xvfz grass-7.2.2.tar.gz
 
 ### Apply patches for Anaconda build on Mac
 
@@ -50,16 +49,21 @@ builds.
 
 To build GRASS, apply the patches, configure, and build.
 
-    $ patch -p0 < platform.make.in.patch
-    $ patch -p0 < loader.py.patch
-    $ patch -p0 < rules.make.patch
-    $ patch -p0 < aclocal.m4.patch
-    $ patch -p0 < install.make.patch
-    $ patch -p0 < configure.patch
-    $ cd grass-7.2.0
+recipe/aclocal.m4.patch			recipe/install.make.patch		recipe/module.make.patch		recipe/platform.make.in.patch		recipe/rules.make.patch
+recipe/configure.patch			recipe/loader.py.patch			recipe/platform.make.in-linux.patch	recipe/rules.make-linux.patch		recipe/shlib.make.patch
+
+    $ patch -p0 < recipe/aclocal.m4.patch
+    $ patch -p0 < recipe/configure.patch
+    $ patch -p0 < recipe/install.make.patch
+    $ patch -p0 < recipe/loader.py.patch
+    $ patch -p0 < recipe/module.make.patch
+    $ patch -p0 < recipe/platform.make.in.patch
+    $ patch -p0 < recipe/rules.make.patch
+    $ patch -p0 < recipe/shlib.make.patch
+    $ cd grass-7.2.2
     $ bash ../configure.sh
-    $ make -j4 GDAL_DYNAMIC=
-    $ make install
+    $ make -j4
+    $ make -j4 install
 
 ## Create an Anaconda package for GRASS
 
@@ -67,4 +71,4 @@ This will build an Anaconda package for GRASS.
 
     $ conda install conda-build
     $ cd recipe
-    $ conda build . -c noaa-orr-erd -c defaults -c conda-forge
+    $ conda build . -c noaa-orr-erd -c conda-forge
