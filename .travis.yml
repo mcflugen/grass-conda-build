@@ -24,11 +24,11 @@ install:
   if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
     OS="MacOSX-x86_64"
     REQUIREMENTS=requirements.txt
-    PATCHES="platform.make.in.patch loader.py.patch rules.make.patch aclocal.m4.patch install.make.patch configure.patch"
+    PATCHES="aclocal.m4.patch configure.patch install.make.patch loader.py.patch module.make.patch platform.make.in.patch rules.make.patch shlib.make.patch"
   else
     OS="Linux-x86_64"
     REQUIREMENTS=requirements-linux.txt
-    PATCHES="platform.make.in-linux.patch loader.py.patch rules.make-linux.patch aclocal.m4.patch install.make.patch configure.patch"
+    PATCHES="platform.make.in-linux.patch loader.py.patch rules.make-linux.patch aclocal.m4.patch install.make.patch configure.patch shlib.make.patch module.make.patch"
   fi
 - curl $MINICONDA_URL_BASE-$OS.sh > $HOME/minconda.sh
 - bash $HOME/minconda.sh -b -p $PREFIX
@@ -36,12 +36,12 @@ install:
 - hash -r
 - conda config --set always_yes yes --set changeps1 no
 - conda install python=$TRAVIS_PYTHON_VERSION
-- conda install --file=$REQUIREMENTS -c noaa-orr-erd -c defaults -c conda-forge
+- conda install --file=$REQUIREMENTS -c noaa-orr-erd -c conda-forge
 - conda list
 - conda info -a
 script:
-- curl -O $GRASS_SOURCE_URL/grass-7.2.2RC1.tar.gz
-- tar xfz grass-7.2.2RC1.tar.gz
+- curl -O $GRASS_SOURCE_URL/grass-7.2.2.tar.gz
+- tar xfz grass-7.2.2.tar.gz
 - for p in $PATCHES; do patch -p0 < recipe/$p; done
-- cd grass-7.2.2RC1
+- cd grass-7.2.2
 - travis_wait 40 bash ../recipe/build.sh
