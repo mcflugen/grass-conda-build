@@ -44,4 +44,12 @@ script:
 - tar xfz grass-7.2.2.tar.gz
 - for p in $PATCHES; do patch -p0 < recipe/$p; done
 - cd grass-7.2.2
+- |
+  if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+    export CC=$(which clang)
+    export CXX=$(which clang++)
+  else
+    export CC=$(which gcc)
+    export CXX=$(which g++)
+  fi
 - travis_wait 40 bash ../recipe/build.sh
