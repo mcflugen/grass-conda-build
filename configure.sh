@@ -2,9 +2,9 @@
 
 export PREFIX=$(python -c 'import sys; print sys.prefix')
 
-export PATH=/usr/bin:/bin:/usr/sbin:/etc:/usr/lib:$PREFIX/bin
-export CC=$(which gcc)
-export CXX=$(which g++)
+export PATH=$PREFIX/bin:/usr/bin:/bin:/usr/sbin:/etc:/usr/lib
+export CC=$(which clang)
+export CXX=$(which clang++)
 if [ $(uname) == Darwin ]; then
   export GRASS_PYTHON=$(which pythonw)
 else
