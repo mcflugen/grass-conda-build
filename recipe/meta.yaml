@@ -6,7 +6,9 @@ package:
   version: {{ version }}
 
 source:
-  url: https://grass.osgeo.org/grass72/source/grass-7.2.2RC1.tar.gz
+  url: https://grass.osgeo.org/grass72/source/grass-7.2.2.tar.gz
+  # path: ../grass-7.2.2RC1
+  # url: https://grass.osgeo.org/grass72/source/grass-7.2.2RC1.tar.gz
   patches:
     - platform.make.in.patch [osx]
     - platform.make.in-linux.patch [linux]
@@ -16,13 +18,17 @@ source:
     - aclocal.m4.patch
     - configure.patch
     - install.make.patch
+    - module.make.patch [osx]
+    - shlib.make.patch [osx]
 
 requirements:
   build:
+    - clang_osx-64 [osx]
+    - gcc_linux-64 [linux]
     - python
     - setuptools
     - numpy
-    - gdal
+    - gdal 2.0.*
     - freetype
     - cairo
     - matplotlib
@@ -39,12 +45,16 @@ requirements:
     - blas
     - giflib
     - python.app [osx]
+    - proj4
+    - geos
+    - krb5
 
   run:
+    - libgcc
     - python
     - setuptools
     - numpy
-    - gdal
+    - gdal 2.0.*
     - freetype
     - cairo
     - matplotlib
@@ -61,6 +71,9 @@ requirements:
     - blas
     - giflib
     - python.app [osx]
+    - proj4
+    - geos
+    - krb5
 
 build:
   number: 0
