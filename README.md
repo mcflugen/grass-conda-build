@@ -68,3 +68,12 @@ This will build an Anaconda package for GRASS.
     $ conda install conda-build
     $ cd recipe
     $ conda build . -c noaa-orr-erd -c defaults -c conda-forge
+
+
+# Create a Mac App for Grass
+
+    $ curl -O curl https://repo.continuum.io/miniconda/Miniconda2-latest-MacOSX-x86_64.sh
+    $ bash Miniconda2-latest-MacOSX-x86_64.sh -b -f -p /Applications/Grass72.app/Contents/Resources
+    $ export PATH=/Applications/Grass72.app/Contents/Resources/bin:$PATH
+    $ conda install grass -c noaa-orr-erd -c conda-forge -c csdms-stack
+
