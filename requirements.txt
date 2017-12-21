@@ -1,5 +1,9 @@
+clang_osx-64
+clangxx_osx-64
+python
+setuptools
 numpy
-gdal
+gdal ==2.0.0
 freetype
 cairo
 matplotlib
@@ -11,9 +15,11 @@ jpeg
 libpng
 libtiff
 pkg-config
-python.app
-
 libiconv
 fftw
 blas
 giflib
+python.app
+proj4
+geos
+krb5
