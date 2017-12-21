@@ -76,6 +76,18 @@ This will build an Anaconda package for GRASS.
 # Create a Mac App for Grass
 
     $ curl -O curl https://repo.continuum.io/miniconda/Miniconda2-latest-MacOSX-x86_64.sh
+    $ cp -r osx/Grass72.app /Applications/
     $ bash Miniconda2-latest-MacOSX-x86_64.sh -b -f -p /Applications/Grass72.app/Contents/Resources
     $ export PATH=/Applications/Grass72.app/Contents/Resources/bin:$PATH
     $ conda install grass -c noaa-orr-erd -c conda-forge -c csdms-stack
+    $ conda clean --all
+
+## Create a dmg
+
+    $ mkdir grass-7.2.2
+    $ grass-7.2.2
+    $ mv /Applications/Grass72.app .
+    $ ln -s /Applications Applications
+
+Open `Disk Utility -> File -> New Image -> Image from folder`, and
+point it to the `grass-7.2.2` folder you just created.
