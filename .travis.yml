@@ -34,7 +34,7 @@ install:
 - conda list
 - conda info -a
 script:
-- conda build ./recipe -c noaa-orr-erd -c conda-forge --old-build-string
+- travis_wait 40 conda build ./recipe -c noaa-orr-erd -c conda-forge --old-build-string
 after_success:
 - curl https://raw.githubusercontent.com/csdms/ci-tools/master/anaconda_upload.py
   > $HOME/anaconda_upload.py
