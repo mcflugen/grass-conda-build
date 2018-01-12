@@ -1,16 +1,14 @@
 language: generic
 os:
-- linux
 - osx
+osx_image: xcode6.4
 env:
   global:
   - PREFIX=$HOME/grass
   - MACOSX_DEPLOYMENT_TARGET="10.9"
-  - GRASS_SVN_REPO="https://svn.osgeo.org/grass/grass"
-  - GRASS_SOURCE_URL="https://grass.osgeo.org/grass72/source"
-  - GRASS_PYTHON=pythonw
   - MINICONDA_URL_BASE="https://repo.continuum.io/miniconda/Miniconda2-latest"
   - TRAVIS_PYTHON_VERSION="2.7"
+  - secure: wWov3g95kPrn6qkffTEBKADmOecDm1suiA8Z+LAO2qYgf7BryF8CHO9HkG6tkjlDx6GFsaoe6yCQ6vE8lHgCQhnna83yK0wfbdCSg2zguPXOTYnGPsov5SZCBk7KdipnimzfFtRngf2yrYVh5WAasj4wky1v9o8qlT/VMEIBOy0nIHUagvbvnR99B24bjTR9cWdyv/kxa56EanHEvBGMtP5BigcvpkOsxhwLBXFonQCVHFiHcLYiaI30DlGIzNqxYv0DO4cz9HxVSovJpY5VWyxHHeglkaLgahdMxd22/ToJJzRpCnFZiB4Bjq3bSeM4MvvBGuSZ5ekH0COqojQW913zud6CvacN2vCPZIUttDuHKfGRXXr3ojBsFJXCeF1GmnbIi2ZG75Mq39rqgN+h1erjO1XMalana6e6ggVSDe6uxJYyZJGWuIycQkuFX83O7BZek2dpxPhhxsuClFtE24JCkEG+JZMGUE5TFI+3dVB8VFWEONsDaCx4cP88OkGwt+Vng7jj5flOVGMA6Tgg7UeFXDSy9iqcohH5w+G1fHNqDLSAkXAWUwJatlQZ1I57ZxbzJyoD1CyYgCfQBpWirmiR/EnZKYCyy/HD20qfZ/c7mdEQ1dsDxbtYMXbm8VAzxFlYwEm/YSS8hTBzIik6+5VMMrhpXu70rs24f3SIow8=
 sudo: false
 before_install:
 - |
@@ -23,12 +21,8 @@ install:
 - |
   if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
     OS="MacOSX-x86_64"
-    REQUIREMENTS=requirements.txt
-    PATCHES="aclocal.m4.patch configure.patch install.make.patch loader.py.patch module.make.patch platform.make.in.patch rules.make.patch shlib.make.patch"
   else
     OS="Linux-x86_64"
-    REQUIREMENTS=requirements-linux.txt
-    PATCHES="platform.make.in-linux.patch loader.py.patch rules.make-linux.patch aclocal.m4.patch install.make.patch configure.patch shlib.make.patch module.make.patch"
   fi
 - curl $MINICONDA_URL_BASE-$OS.sh > $HOME/minconda.sh
 - bash $HOME/minconda.sh -b -p $PREFIX
@@ -36,20 +30,13 @@ install:
 - hash -r
 - conda config --set always_yes yes --set changeps1 no
 - conda install python=$TRAVIS_PYTHON_VERSION
-- conda install --file=$REQUIREMENTS -c noaa-orr-erd -c conda-forge
+- conda install -q conda-build anaconda-client
 - conda list
 - conda info -a
 script:
-- curl -O $GRASS_SOURCE_URL/grass-7.2.2.tar.gz
-- tar xfz grass-7.2.2.tar.gz
-- for p in $PATCHES; do patch -p0 < recipe/$p; done
-- cd grass-7.2.2
-- |
-  if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-    export CC=$(which clang)
-    export CXX=$(which clang++)
-  else
-    export CC=$(which gcc)
-    export CXX=$(which g++)
-  fi
-- travis_wait 40 bash ../recipe/build.sh
+- conda build ./recipe -c noaa-orr-erd -c conda-forge --old-build-string
+after_success:
+- curl https://raw.githubusercontent.com/csdms/ci-tools/master/anaconda_upload.py
+  > $HOME/anaconda_upload.py
+- echo $ANACONDA_TOKEN | python $HOME/anaconda_upload.py ./recipe --channel=main --org=csdms-stack
+  --old-build-string --token=-
