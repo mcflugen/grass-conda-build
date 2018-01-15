@@ -5,9 +5,9 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleExecutable</key>
-	<string>GRASS</string>
+	<string>Grass</string>
 	<key>CFBundleGetInfoString</key>
-	<string>GRASS GIS 7.2.svn-160908</string>
+	<string>GRASS GIS 7.2.2</string>
 	<key>CFBundleIconFile</key>
 	<string>app.icns</string>
 	<key>CFBundleIdentifier</key>
@@ -17,11 +17,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>GRASS GIS 7.2.svn</string>
+	<string>GRASS GIS 7.2.2</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>7.2.svn-160908</string>
+	<string>7.2.2</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu.nib</string>
 	<key>NSPrincipalClass</key>
