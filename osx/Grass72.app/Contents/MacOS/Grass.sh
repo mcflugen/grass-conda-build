@@ -17,7 +17,8 @@
 #
 #############################################################################
 
-script_dir=$(dirname "$(dirname "$0")")
+# script_dir=$(dirname "$(dirname "$0")")
+app_dir="$(cd "$(dirname "$0")/../.."; pwd -P)"
 
 # Mac app only startup shell - complete rewrite for starting from a GRASS.app
 # in Mac OS X.  Sets defaults for unset env, adds some Mac-only config.
@@ -27,25 +28,14 @@ trap "echo 'User break!' ; exit" 2 3 9 15
 # dummy for now - just saying we're starting GRASS.app on OSX
 export GRASS_OS_STARTUP="Mac.app"
 
-SYSARCH=`uname -p`
-SYSVER=`uname -r | cut -d . -f 1`
-
 ### change this to dirname/MacOS or dirname/Resources??
 ### set it this way instead of a direct path
 
-export GISBASE=$script_dir/Resources
-grass_ver=`cut -d . -f 1-2 "$GISBASE/etc/VERSIONNUMBER"`
-
-#override config dir.
-GRASS_CONFIG_DIR="Library/Preferences/GRASS/$grass_ver"
+export GISBASE=$app_dir/Contents/Resources
+grass_ver=$(cut -d . -f 1-2 "$GISBASE/etc/VERSIONNUMBER")
 
 export GISBASE_USER="$HOME/Library/GRASS/$grass_ver"
 export GISBASE_SYSTEM="/Library/GRASS/$grass_ver"
-
-# for extra utils
-# ideally user should have these in their PATH, but make sure here
-#PATH="/Applications/anaconda/bin:/Applications/anaconda/bin:$PATH"
-#export PATH
 
 # add some OS X style app support paths, and create user one if missing.
 mkdir -p "$GISBASE_USER/Modules/bin"
@@ -68,8 +58,8 @@ mkdir -p "$GISBASE_USER/Modules/lib"
 mkdir -p "$GISBASE_USER/Modules/docs/html"
 
 # rebuild addon html index and gui menus
-"$GISBASE/etc/build_html_user_index.sh" "$GISBASE"
-"$GISBASE/etc/build_gui_user_menu.sh"
+"$app_dir/Contents/MacOS/build_html_user_index.sh" "$GISBASE"
+"$app_dir/Contents/MacOS/build_gui_user_menu.sh"
 
 # user fontcap files
 if [ ! "$GRASS_FONT_CAP" ] ; then
@@ -82,4 +72,4 @@ export GRASS_PYTHON="$GISBASE/bin/pythonw"
 export GRASS_PYTHONWX="$GISBASE/bin/pythonw"
 
 # use the python wrapper to start grass
-"$GISBASE/bin/python" "$GISBASE/bin/grass72" "-gui" "$@"
+"$GRASS_PYTHON" "$GISBASE/bin/grass72" "-gui" "$@"
