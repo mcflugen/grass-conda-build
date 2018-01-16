@@ -85,7 +85,7 @@ This will build an Anaconda package for GRASS.
 ## Create a dmg
 
     $ mkdir grass-7.2.2
-    $ grass-7.2.2
+    $ cd grass-7.2.2
     $ mv /Applications/Grass72.app .
     $ ln -s /Applications Applications
 
