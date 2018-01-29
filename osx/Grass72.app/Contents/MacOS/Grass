@@ -6,7 +6,7 @@ script_dir=$(dirname "$(dirname "$0")")
 
 osascript  <<EOF
 tell app "Terminal"
-  do script "$script_dir/MacOS/Grass.sh"
+  do script "/usr/bin/env -i HOME=$HOME PATH=/usr/bin:/bin:/usr/sbin:/etc:/usr/lib $script_dir/MacOS/Grass.sh"
 end tell
 EOF
 
