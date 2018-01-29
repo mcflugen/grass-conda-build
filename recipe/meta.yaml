@@ -1,14 +1,12 @@
 {% set name = "grass" %}
-{% set version = "7.2.2" %}
+{% set version = "7.4.0" %}
 
 package:
   name: {{ name }}
   version: {{ version }}
 
 source:
-  url: https://grass.osgeo.org/grass72/source/grass-7.2.2.tar.gz
-  # path: ../grass-7.2.2RC1
-  # url: https://grass.osgeo.org/grass72/source/grass-7.2.2RC1.tar.gz
+  url: https://grass.osgeo.org/grass74/source/grass-7.4.0.tar.gz
   patches:
     - platform.make.in.patch [osx]
     - platform.make.in-linux.patch [linux]
