@@ -37,6 +37,7 @@ grass_ver=$(cut -d . -f 1-2 "$GISBASE/etc/VERSIONNUMBER")
 export GISBASE_USER="$HOME/Library/GRASS/$grass_ver"
 export GISBASE_SYSTEM="/Library/GRASS/$grass_ver"
 
+# location of epsg database and other files needed by GDAL
 export GDAL_DATA="$GISBASE/share/gdal"
 
 # add some OS X style app support paths, and create user one if missing.
